@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:my_app_demo/function/refresh/my_refresh.dart';
 import 'package:my_app_demo/page/home/vm/home_vm.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:my_app_demo/utils/ext.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -13,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final HomeVM _viewModel = HomeVM()..refresh();
+  final HomeVM _viewModel = HomeVM()..getData();
 
   @override
   void initState() {
@@ -31,13 +29,14 @@ class _HomePageState extends State<HomePage> {
         builder: (context, child) {
           return MYRefresh.list(
             listViewModel: _viewModel,
+            shrinkWrap: true,
             itemCount: context.watch<HomeVM>().list.length,
-            itemBuilder: (BuildContext context, int index) {
+            itemBuilder: (BuildContext context, String item, int index) {
               return ListTile(
                 leading: CircleAvatar(
-                  child: Text(_viewModel.list[index].substring(0, 1)),
+                  child: Text(item.substring(0, 1)),
                 ),
-                title: Text(_viewModel.list[index]),
+                title: Text(item),
               );
             },
           );

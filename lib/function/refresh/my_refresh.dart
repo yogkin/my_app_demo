@@ -5,28 +5,51 @@ import 'package:my_base/my_base.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:my_app_demo/utils/ext.dart';
 
-class MYRefresh extends StatelessWidget {
+typedef IndexedItemWidgetBuilder<T> = Widget Function(
+    BuildContext context, T item, int index);
+
+class MYRefresh<T> extends StatelessWidget {
+  //刷新viewModel
   final MYListViewModel listViewModel;
+
+  //数量
   final int itemCount;
-  final IndexedWidgetBuilder itemBuilder;
+
+  //itemBuilder 跟listview的itemBuilder一样
+  final IndexedItemWidgetBuilder<T> itemBuilder;
 
   //listView or gridView
   final bool isListModel;
 
-  MYRefresh.list(
-      {Key key,
-      @required this.listViewModel,
-      @required this.itemBuilder,
-      @required this.itemCount})
-      : isListModel = true,
+  //listview 或者 gridview的一样
+  final bool shrinkWrap;
+
+  //listview 或者 gridview的一样
+  final EdgeInsetsGeometry padding;
+
+  //gridview gridDelegate
+  final SliverGridDelegate gridDelegate;
+
+  MYRefresh.list({
+    Key key,
+    @required this.listViewModel,
+    @required this.itemBuilder,
+    @required this.itemCount,
+    this.shrinkWrap = false,
+    this.padding,
+  })  : isListModel = true,
+        gridDelegate = null,
         super(key: key);
 
-  MYRefresh.grid(
-      {Key key,
-      @required this.listViewModel,
-      @required this.itemBuilder,
-      @required this.itemCount})
-      : isListModel = false,
+  MYRefresh.grid({
+    Key key,
+    @required this.listViewModel,
+    @required this.itemBuilder,
+    @required this.itemCount,
+    this.shrinkWrap = false,
+    this.padding,
+    this.gridDelegate,
+  })  : isListModel = false,
         super(key: key);
 
   @override
@@ -91,16 +114,22 @@ class MYRefresh extends StatelessWidget {
     if (isListModel) {
       return ListView.builder(
         itemCount: itemCount,
-        itemBuilder: itemBuilder,
+        itemBuilder: (context, index) {
+          return itemBuilder(context, listViewModel.list[index], index);
+        },
+        shrinkWrap: shrinkWrap,
+        padding: padding,
       );
     } else {
       return GridView.builder(
         itemCount: itemCount,
-        itemBuilder: itemBuilder,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 1.0,
-        ),
+        itemBuilder: (context, index) {
+          return itemBuilder(context, listViewModel.list[index], index);
+        },
+        shrinkWrap: shrinkWrap,
+        physics: ClampingScrollPhysics(),
+        padding: padding,
+        gridDelegate: gridDelegate,
       );
     }
   }
