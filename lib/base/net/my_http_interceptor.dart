@@ -8,6 +8,8 @@ class MYInterceptor extends InterceptorsWrapper {
 
   @override
   Future onResponse(Response response) {
+    response.headers ??= Headers();
+    response.headers..add('version', '6350');
     return super.onResponse(response);
   }
 
