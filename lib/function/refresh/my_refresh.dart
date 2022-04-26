@@ -1,35 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:my_app_demo/base/view_model/my_list_view_model.dart';
+import 'package:my_app_demo/function/skeleton/view_skeleton_list.dart';
 import 'package:my_base/my_base.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:my_app_demo/utils/ext.dart';
 
 class MYRefresh extends StatelessWidget {
   final MYListViewModel listViewModel;
-  final Widget child;
+  final int itemCount;
+  final IndexedWidgetBuilder itemBuilder;
 
-  MYRefresh({Key key, @required this.listViewModel, @required this.child})
-      : super(key: key);
+  //listView or gridView
+  final bool isListModel;
+
+  MYRefresh.list(
+      {Key key,
+      @required this.listViewModel,
+      @required this.itemBuilder,
+      @required this.itemCount})
+      : isListModel = true,
+        super(key: key);
+
+  MYRefresh.grid(
+      {Key key,
+      @required this.listViewModel,
+      @required this.itemBuilder,
+      @required this.itemCount})
+      : isListModel = false,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SmartRefresher(
-      controller: listViewModel.refreshController,
-      onRefresh: listViewModel.refresh,
-      onLoading: listViewModel.loadMoreData,
-      enablePullUp: true,
-      child: getChild(),
+    return RefreshConfiguration.copyAncestor(
+      context: context,
+      child: SmartRefresher(
+        controller: listViewModel.refreshController,
+        onRefresh: listViewModel.refresh,
+        onLoading: listViewModel.loadMoreData,
+        enablePullUp: true,
+        child: getChild(),
+      ),
     );
   }
 
   Widget getChild() {
     switch (listViewModel.refreshStatus) {
       case LoadState.VIEW_SKELETON:
-        return Container(
-          child: Center(
-            child: Text('鱼骨图'),
-          ),
-        );
+        return ViewSkeletonListPage();
       case LoadState.NOT_DATA:
         return getNotDataWidget();
       case LoadState.NETWORK_ERROR:
@@ -39,8 +56,10 @@ class MYRefresh extends StatelessWidget {
           ),
         );
       case LoadState.SHOW_DATA:
-        return child;
+        return getListWidget();
     }
+    //正常不会走到这里，为了取消编译警告
+    return Container();
   }
 
   ///获取列表默认无数据的widget
@@ -66,5 +85,23 @@ class MYRefresh extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget getListWidget() {
+    if (isListModel) {
+      return ListView.builder(
+        itemCount: itemCount,
+        itemBuilder: itemBuilder,
+      );
+    } else {
+      return GridView.builder(
+        itemCount: itemCount,
+        itemBuilder: itemBuilder,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 1.0,
+        ),
+      );
+    }
   }
 }

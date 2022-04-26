@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final HomeVM _viewModel = HomeVM();
+  final HomeVM _viewModel = HomeVM()..refresh();
 
   @override
   void initState() {
@@ -29,19 +29,17 @@ class _HomePageState extends State<HomePage> {
       body: ChangeNotifierProvider.value(
         value: _viewModel,
         builder: (context, child) {
-          return MYRefresh(
+          return MYRefresh.list(
             listViewModel: _viewModel,
-            child: ListView.builder(
-              itemCount: context.watch<HomeVM>().list.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    child: Text(_viewModel.list[index].substring(0, 1)),
-                  ),
-                  title: Text(_viewModel.list[index]),
-                );
-              },
-            ),
+            itemCount: context.watch<HomeVM>().list.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                leading: CircleAvatar(
+                  child: Text(_viewModel.list[index].substring(0, 1)),
+                ),
+                title: Text(_viewModel.list[index]),
+              );
+            },
           );
         },
       ),
