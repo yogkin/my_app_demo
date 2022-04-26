@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final HomeVM _viewModel = HomeVM()..getData();
+  final HomeVM _viewModel = HomeVM()..refresh();
 
   @override
   void initState() {
