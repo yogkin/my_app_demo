@@ -2,11 +2,14 @@ import 'package:my_app_demo/base/view_model/base_view_model_mixin.dart';
 import 'package:my_base/my_base.dart';
 import 'package:my_base/net/my_next_mixin.dart';
 
+import 'my_http_interceptor.dart';
+
 ///网络配置
 ///
 final MYHttp myHttp = MYHttp()
   ..baseUrl = "https://api.github.com"
   ..connectTimeout = 5000
+  ..interceptors.add(MYInterceptor())
   ..proxyIp = ''
   ..receiveTimeout = 5000;
 
