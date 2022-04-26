@@ -43,9 +43,7 @@ class MyNetMixin implements MYBaseNetMixin {
   }
 
   @override
-  MYRespModel resultError(DioError a) {
-    return _myNextMixin.resultError(a);
-  }
+  void resultError(String errorMsg) => _myNextMixin.resultError(errorMsg);
 
   @override
   Future doPost(api, {params, data, withLoading = true, Options options}) {
