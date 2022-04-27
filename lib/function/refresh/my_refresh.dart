@@ -46,9 +46,9 @@ class MYRefresh<T> extends StatelessWidget {
     @required this.listViewModel,
     @required this.itemBuilder,
     @required this.itemCount,
+    @required this.gridDelegate,
     this.shrinkWrap = false,
     this.padding,
-    this.gridDelegate,
   })  : isListModel = false,
         super(key: key);
 
