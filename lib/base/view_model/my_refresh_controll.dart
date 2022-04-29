@@ -1,4 +1,4 @@
-import 'package:my_base/my_base.dart';
+import 'package:my_vm_lib/my_vm_lib.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MYRefreshController extends IMYRefreshController {

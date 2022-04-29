@@ -1,6 +1,6 @@
 import 'package:my_app_demo/base/view_model/base_view_model_mixin.dart';
-import 'package:my_base/my_base.dart';
-import 'package:my_base/net/my_next_mixin.dart';
+import 'package:my_net_lib/my_net_lib.dart';
+
 
 import 'my_http_interceptor.dart';
 

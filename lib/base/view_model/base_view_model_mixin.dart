@@ -1,6 +1,7 @@
 import 'package:my_app_demo/base/net/my_net.dart';
 import 'package:my_app_demo/utils/loading_utils.dart';
-import 'package:my_base/my_base.dart';
+import 'package:my_net_lib/my_net_lib.dart';
+import 'package:my_vm_lib/my_vm_lib.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'my_refresh_controll.dart';
 

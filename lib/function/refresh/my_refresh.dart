@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app_demo/base/view_model/my_list_view_model.dart';
 import 'package:my_app_demo/function/skeleton/view_skeleton_list.dart';
-import 'package:my_base/my_base.dart';
+import 'package:my_vm_lib/my_vm_lib.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:my_app_demo/utils/ext.dart';
 
