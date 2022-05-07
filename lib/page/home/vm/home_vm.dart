@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:my_app_demo/base/view_model/my_list_view_model.dart';
+import 'package:my_app_demo/page/home/bean/home_bean.dart';
 
 class HomeVM extends MYListViewModel<String> {
   @override
@@ -24,9 +25,8 @@ class HomeVM extends MYListViewModel<String> {
     }
   }
 
-  getData() {
-    doGet('api').then((value) {
-      print(value);
-    });
+  getData() async {
+    var resp = await doGet<HomeBean>('api');
+    resp.remark = '我是备注';
   }
 }
