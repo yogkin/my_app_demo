@@ -19,34 +19,23 @@ class BaseBean<T extends MYNetBeanMixin> {
     _code = code;
   }
 
-  BaseBean.fromJson(dynamic json) {
-    _msg = json['msg'];
-    _data = json['data'] != null ? data.fromJson(json['data']) : null;
-    _code = json['code'];
-  }
-
   String _msg;
-  T _data;
+  dynamic _data;
   String _code;
-
-  BaseBean copyWith({
-    String msg,
-    T data,
-    String code,
-  }) =>
-      BaseBean<T>(
-        msg: msg ?? _msg,
-        data: data ?? _data,
-        code: code ?? _code,
-      );
 
   String get msg => _msg;
 
-  T get data => _data;
+  dynamic get data => _data;
 
   String get code => _code;
 
-  Map<String, dynamic> toJson() {
+  BaseBean.fromJson(json) {
+    _msg = json['msg'];
+    _data = json['data'] ?? '';
+    _code = json['code'];
+  }
+
+  Map<String, T> toJson() {
     final map = <String, dynamic>{};
     map['msg'] = _msg;
     if (_data != null) {

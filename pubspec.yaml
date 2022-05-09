@@ -45,6 +45,10 @@ dependencies:
   # 屏幕适配
   flutter_screenutil: ^1.0.2
 
+  crypto: ^2.0.0
+
+  encrypt: ^4.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -60,7 +64,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-    # To add assets to your application, add an assets section, like this:
+  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/img/
 

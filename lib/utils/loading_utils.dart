@@ -11,6 +11,7 @@ class LoadingUtils {
       ..loadingStyle = EasyLoadingStyle.dark
       ..userInteractions = false
       ..indicatorSize = 45.0;
+
     return EasyLoading.init();
   }
 
