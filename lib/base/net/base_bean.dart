@@ -29,6 +29,8 @@ class BaseBean<T extends MYNetBeanMixin> {
 
   String get code => _code;
 
+  bool get isSuccess => code == '0';
+
   BaseBean.fromJson(json) {
     _msg = json['msg'];
     _data = json['data'] ?? '';

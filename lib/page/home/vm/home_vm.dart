@@ -27,8 +27,9 @@ class HomeVM extends MYListViewModel<String> {
   getData() async {
     // https://github.com/google/json_serializable.dart/issues/779
     // https://github.com/dart-lang/language/issues/356
-    ///改该方法行不通，dart为了静态类型、拓展类型安全，不允许泛型直接转成一个具体类型
-    // var resp = await doPost<BaseBean<HomeBean>>('/gw/api/order/getOrderList/new', data: {});
+    ///改该方法行不通，dart为了静态类型、拓展类型安全，不允许泛型直接转成一个具体类型，无法
+    ///通过泛型直接转换成具体的类型
+    // var resp = await doPost<HomeBean>('/gw/api/order/getOrderList/new', data: {});
 
     var resp = await doPost('/gw/api/order/getOrderList/new', data: {});
     var homeBean = HomeBean.fromJson(resp);

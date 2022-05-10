@@ -11,13 +11,59 @@ final MYHttp myHttp = MYHttp()
   ..baseUrl = "http://uat03.miyuan.com"
   ..connectTimeout = 5000
   ..interceptors.add(MYInterceptor())
-  ..proxyIp = '192.168.137.1:8888'
+  ..proxyIp = '192.168.1.82:8888'
   ..receiveTimeout = 5000
   ..build();
 
 ///net 代理类
+///[MYBaseNetMixin] 网络
+///[MYBaseViewModelMixin] mvvm
 ///
-class MYNetMixinProxy with MYBaseNetMixin, MYBaseViewModelMixin {}
+class MYNetMixinProxy with MYBaseNetMixin, MYBaseViewModelMixin {
+  ///根据蜜源返回code 处理对应业务
+  ///
+  void handleRespCode(BaseBean baseBean) {
+    switch (baseBean.code) {
+      case "B00000":
+      case "0":
+        //成功
+        break;
+      case "B10019": //账号异常去登陆|
+        // if (isShowError && ObjectUtil.isEmpty(message)) {
+        //   ToastUtils.showToast(message);
+        // }
+        // MyLogUtil.dAndWriteNative("退出登录：$message", type: LoganType.NETWORD);
+        // BaseFlutterBoostUtil.logout();
+        break;
+      case "P00501": //注销  app登出用户态  弹窗提示（原客服微信&原提示语
+      case "P00503": // 封号 app登出用户态  弹窗提示（原客服微信&新的提示语）
+        // BaseFlutterBoostUtil.accountSealedAndCancel(message);
+        // if (errorCallback != null) {
+        //   errorCallback(HttpError(statusCode, message));
+        // }
+        break;
+      case "P00502": // 踢下线 app登出用户态
+        // BaseFlutterBoostUtil.accountLogoutBySystem(message);
+        // if (errorCallback != null) {
+        //   errorCallback(HttpError(statusCode, message));
+        // }
+        break;
+      default:
+        // //失败
+        // if (isShowError && ObjectUtil.isNotEmpty(message)) {
+        //   ToastUtils.showToast(message);
+        // }
+        // MyLogUtil.dAndWriteNative("请求服务器出错：$message", type: LoganType.NETWORD);
+        // // BaseFlutterBoostUtil.upLoadExceptionLog(category:ExceptionCategory.NET,
+        // //     type: ExceptionType.API_RESPONSE_ERROR,
+        // //     message: "请求服务器出错：$message");
+        // if (errorCallback != null) {
+        //   errorCallback(HttpError(statusCode, message));
+        // }
+        break;
+    }
+  }
+}
 
 ///网络请求mixin类
 ///
@@ -40,21 +86,23 @@ class MyNetMixin implements MYBaseNetMixin {
   Future doGet(api,
       {params, withLoading = true, Function(BaseBean) dealResponse}) async {
     var resp =
-    await _myNextMixin.doGet(api, params: params, withLoading: withLoading);
+        await _myNextMixin.doGet(api, params: params, withLoading: withLoading);
     BaseBean baseBean = BaseBean.fromJson(jsonDecode(resp));
     if (dealResponse != null) {
       dealResponse(baseBean);
     } else {
-
+      _myNextMixin.handleRespCode(baseBean);
     }
     return baseBean.data;
   }
 
   @override
-  void resultError(String errorMsg) => _myNextMixin.resultError(errorMsg);
+  void resultHttpError(String errorMsg) =>
+      _myNextMixin.resultHttpError(errorMsg);
 
   @override
-  Future doPost(api, {
+  Future doPost(
+    api, {
     params,
     data,
     withLoading = true,
@@ -64,7 +112,7 @@ class MyNetMixin implements MYBaseNetMixin {
     var resp = await _myNextMixin.doPost(api,
         params: params, data: data, withLoading: withLoading, options: options);
 
-    ///不能使跟进泛型T直接转成具体类型。
+    ///不能使用泛型T直接转成具体类型。
     ///
     ///https://github.com/dart-lang/language/issues/356
     ///https://github.com/google/json_serializable.dart/issues/779
@@ -74,8 +122,8 @@ class MyNetMixin implements MYBaseNetMixin {
     if (dealResponse != null) {
       dealResponse(baseBean);
     } else {
-      baseBean.code=='BB';
+      _myNextMixin.handleRespCode(baseBean);
     }
-    return baseBean.data;
+    return baseBean.data ?? '';
   }
 }
