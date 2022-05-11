@@ -22,10 +22,12 @@ final MYHttp myHttp = MYHttp()
 class MYNetMixinProxy with MYBaseNetMixin, MYBaseViewModelMixin {
   ///根据蜜源返回code 处理对应业务
   ///
-  void handleRespCode(BaseBean baseBean) {
+  Future handleResp(
+      BaseBean baseBean, Function(BaseBean) handleResponse) async {
     switch (baseBean.code) {
       case "B00000":
       case "0":
+        return handleResponse == null ? baseBean?.data ?? '' : baseBean;
         //成功
         break;
       case "B10019": //账号异常去登陆|
@@ -84,21 +86,16 @@ class MyNetMixin implements MYBaseNetMixin {
 
   @override
   Future doGet(api,
-      {params, withLoading = true, Function(BaseBean) dealResponse}) async {
+      {params, withLoading = true, Function(BaseBean) handleResponse}) async {
     var resp =
         await _myNextMixin.doGet(api, params: params, withLoading: withLoading);
     BaseBean baseBean = BaseBean.fromJson(jsonDecode(resp));
-    if (dealResponse != null) {
-      dealResponse(baseBean);
-    } else {
-      _myNextMixin.handleRespCode(baseBean);
-    }
-    return baseBean.data;
+    return _myNextMixin.handleResp(baseBean, handleResponse);
   }
 
   @override
-  void resultHttpError(String errorMsg) =>
-      _myNextMixin.resultHttpError(errorMsg);
+  Future resultHttpError(int code, String errorMsg) =>
+      _myNextMixin.resultHttpError(code, errorMsg);
 
   @override
   Future doPost(
@@ -107,7 +104,7 @@ class MyNetMixin implements MYBaseNetMixin {
     data,
     withLoading = true,
     Options options,
-    Function(BaseBean) dealResponse,
+    Function(BaseBean) handleResponse,
   }) async {
     var resp = await _myNextMixin.doPost(api,
         params: params, data: data, withLoading: withLoading, options: options);
@@ -119,11 +116,6 @@ class MyNetMixin implements MYBaseNetMixin {
     // BaseBean baseBean = T.fromJson(jsonDecode(resp));
     // 会报错 ： Unhandled Exception: type '_Type' is not a subtype of type 'MYNetBeanMixin' in type cast
     BaseBean baseBean = BaseBean.fromJson(jsonDecode(resp));
-    if (dealResponse != null) {
-      dealResponse(baseBean);
-    } else {
-      _myNextMixin.handleRespCode(baseBean);
-    }
-    return baseBean.data ?? '';
+    return _myNextMixin.handleResp(baseBean, handleResponse);
   }
 }

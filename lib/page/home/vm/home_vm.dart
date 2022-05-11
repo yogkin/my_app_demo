@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:math';
 import 'package:my_app_demo/base/view_model/my_list_view_model.dart';
 import 'package:my_app_demo/page/home/bean/home_bean.dart';
@@ -31,8 +32,23 @@ class HomeVM extends MYListViewModel<String> {
     ///通过泛型直接转换成具体的类型
     // var resp = await doPost<HomeBean>('/gw/api/order/getOrderList/new', data: {});
 
+    // await doPost('/gw/api/order/getOrderList/new', data: {}).then((value) {
+    //   debugger();
+    //   var homeBean = HomeBean.fromJson(value);
+    //   showToast(homeBean.dataList.length.toString());
+    // }).catchError((e, msg) {
+    //   debugger();
+    //   showToast(e.toString());
+    // });
+
+    //正常类型
     var resp = await doPost('/gw/api/order/getOrderList/new', data: {});
     var homeBean = HomeBean.fromJson(resp);
-    homeBean.dataList.forEach((element) {});
+    showToast(homeBean.dataList.length.toString());
+
+    //data 是一个列表类型
+    // var resp = await doPost('/gw/api/order/getOrderList/new', data: {});
+    // List<HomeBean> homeBeans = resp.map((e) => HomeBean.fromJson(e)).toList();
+    // showToast(homeBeans.length.toString());
   }
 }
