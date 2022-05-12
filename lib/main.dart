@@ -6,6 +6,8 @@ import 'package:my_app_demo/function/refresh/my_header.dart';
 import 'package:my_app_demo/page/home/index.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'page/goods_detail/index.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -33,12 +35,28 @@ class MyApp extends StatelessWidget {
               ScreenUtil.init(context,
                   width: 750.0, height: 1334.0, allowFontScaling: false);
               return Center(
-                child: OutlineButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
-                  },
-                  child: Text('点击跳转'),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    OutlineButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage()));
+                      },
+                      child: Text('网络请求、MVVM'),
+                    ),
+                    OutlineButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyTabbedPage()));
+                      },
+                      child: Text('下拉刷新'),
+                    ),
+                  ],
                 ),
               );
             },

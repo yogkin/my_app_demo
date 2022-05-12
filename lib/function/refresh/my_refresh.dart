@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:my_app_demo/base/view_model/my_list_view_model.dart';
 import 'package:my_app_demo/function/skeleton/view_skeleton_list.dart';
@@ -29,12 +31,14 @@ class MYRefresh<T> extends StatelessWidget {
 
   //gridview gridDelegate
   final SliverGridDelegate gridDelegate;
+  final ScrollController scrollController;
 
   MYRefresh.list({
     Key key,
     @required this.listViewModel,
     @required this.itemBuilder,
     @required this.itemCount,
+    this.scrollController,
     this.shrinkWrap = false,
     this.padding,
   })  : isListModel = true,
@@ -48,17 +52,20 @@ class MYRefresh<T> extends StatelessWidget {
     @required this.itemCount,
     @required this.gridDelegate,
     this.shrinkWrap = false,
+    this.scrollController,
     this.padding,
   })  : isListModel = false,
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    debugger();
     return RefreshConfiguration.copyAncestor(
       context: context,
       child: SmartRefresher(
         controller: listViewModel.refreshController,
         onRefresh: listViewModel.refresh,
+        enablePullDown: false,
         onLoading: listViewModel.loadMoreData,
         enablePullUp: true,
         child: getChild(),
