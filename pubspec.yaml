@@ -32,6 +32,8 @@ dependencies:
     path: '../my_vm_lib'
   my_net_lib:
     path: '../my_net_lib'
+  my_image_lib:
+    path: '../my_image_lib'
 
   # loading ，toast 类 https://pub.dev/packages/flutter_easyloading/versions
   flutter_easyloading: ^2.2.2
