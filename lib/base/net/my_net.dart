@@ -11,7 +11,7 @@ final MYHttp myHttp = MYHttp()
   ..baseUrl = "http://uat03.miyuan.com"
   ..connectTimeout = 5000
   ..interceptors.add(MYInterceptor())
-  ..proxyIp = '192.168.1.82:8888'
+  ..proxyIp = '10.0.1.44:8888'
   ..receiveTimeout = 5000
   ..build();
 

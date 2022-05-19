@@ -59,7 +59,6 @@ class MYRefresh<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugger();
     return RefreshConfiguration.copyAncestor(
       context: context,
       child: SmartRefresher(
