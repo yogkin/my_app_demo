@@ -35,6 +35,7 @@ class _HomePageState extends State<HomePage> {
           return MYRefresh.list(
               listViewModel: _viewModel,
               shrinkWrap: true,
+              enablePullUp: true,
               itemCount: context.watch<HomeVM>().list.length,
               itemBuilder: (BuildContext context, String item, int index) {
                 return ListTile(

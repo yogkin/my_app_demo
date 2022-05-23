@@ -31,13 +31,20 @@ class MYRefresh<T> extends StatelessWidget {
   final SliverGridDelegate gridDelegate;
   final ScrollController scrollController;
 
+  //是否可以下拉
+  final bool enablePullDown;
+  //是否可以上拉
+  final bool enablePullUp;
+
   MYRefresh.list({
     Key key,
     @required this.listViewModel,
     @required this.itemBuilder,
     @required this.itemCount,
     this.scrollController,
-    this.shrinkWrap = false,
+    this.shrinkWrap,
+    this.enablePullDown,
+    this.enablePullUp,
     this.padding,
   })  : isListModel = true,
         gridDelegate = null,
@@ -49,7 +56,9 @@ class MYRefresh<T> extends StatelessWidget {
     @required this.itemBuilder,
     @required this.itemCount,
     @required this.gridDelegate,
-    this.shrinkWrap = false,
+    this.shrinkWrap,
+    this.enablePullDown,
+    this.enablePullUp,
     this.scrollController,
     this.padding,
   })  : isListModel = false,
@@ -62,9 +71,9 @@ class MYRefresh<T> extends StatelessWidget {
       child: SmartRefresher(
         controller: listViewModel.refreshController,
         onRefresh: listViewModel.refresh,
-        enablePullDown: false,
+        enablePullDown: enablePullDown ?? true,
         onLoading: listViewModel.loadMoreData,
-        enablePullUp: true,
+        enablePullUp: enablePullUp ?? false,
         child: getChild(),
       ),
     );
@@ -121,7 +130,7 @@ class MYRefresh<T> extends StatelessWidget {
         itemBuilder: (context, index) {
           return itemBuilder(context, listViewModel.list[index], index);
         },
-        shrinkWrap: shrinkWrap,
+        shrinkWrap: shrinkWrap ?? true,
         padding: padding,
       );
     } else {
@@ -130,7 +139,7 @@ class MYRefresh<T> extends StatelessWidget {
         itemBuilder: (context, index) {
           return itemBuilder(context, listViewModel.list[index], index);
         },
-        shrinkWrap: shrinkWrap,
+        shrinkWrap: shrinkWrap ?? true,
         physics: ClampingScrollPhysics(),
         padding: padding,
         gridDelegate: gridDelegate,
