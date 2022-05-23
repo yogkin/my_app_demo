@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +12,12 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'page/goods_detail/index.dart';
 
 void main() {
+  runZonedGuarded(() {
+    runApp(MyApp());
+  }, (error, stackTrace) {
+    //打印错误堆栈
+    print(stackTrace);
+  });
   runApp(MyApp());
 }
 
