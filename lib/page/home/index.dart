@@ -11,10 +11,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final HomeVM _viewModel = HomeVM()..getListData();
+  final HomeVM _viewModel = HomeVM();
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (mounted) {
+        _viewModel.refresh();
+      }
+    });
     super.initState();
   }
 
@@ -28,18 +33,17 @@ class _HomePageState extends State<HomePage> {
         value: _viewModel,
         builder: (context, child) {
           return MYRefresh.list(
-            listViewModel: _viewModel,
-            shrinkWrap: true,
-            itemCount: context.watch<HomeVM>().list.length,
-            itemBuilder: (BuildContext context, String item, int index) {
-              return ListTile(
-                leading: CircleAvatar(
-                  child: Text(item.substring(0, 1)),
-                ),
-                title: Text(item),
-              );
-            }
-          );
+              listViewModel: _viewModel,
+              shrinkWrap: true,
+              itemCount: context.watch<HomeVM>().list.length,
+              itemBuilder: (BuildContext context, String item, int index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    child: Text(item.substring(0, 1)),
+                  ),
+                  title: Text(item),
+                );
+              });
         },
       ),
     );
