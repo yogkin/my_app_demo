@@ -54,6 +54,14 @@ class _MYImagePageState extends State<MYImagePage> {
                   height: 100,
                 )
               : Container(),
+          SizedBox(height: 10),
+          isShowNetImg
+              ? MyImage.network(
+                  'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.huabanimg.com%2Fe0a25a7cab0d7c2431978726971d61720732728a315ae-57EskW_fw658&refer=http%3A%2F%2Fhbimg.huabanimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1655888493&t=90f42042446dc1af802e052c5279d96b',
+                  width: 100,
+                  height: 100,
+                )
+              : Container(),
         ],
       ),
     );
