@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:my_app_demo/base/view_model/my_list_view_model.dart';
 import 'package:my_app_demo/function/skeleton/view_skeleton_list.dart';

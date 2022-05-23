@@ -29,7 +29,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
   my_vm_lib:
-    git: 'https://git.gzmiyuan.com/chenzhimin/my_vm_lib.git'
+    git: 'https://git.gzmiyuan.com/flutter/my_vm_lib.git'
   my_net_lib:
     git: 'https://git.gzmiyuan.com/flutter/my_net_lib.git'
   my_image_lib:
