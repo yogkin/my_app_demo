@@ -196,23 +196,29 @@ packages:
   my_image_lib:
     dependency: "direct main"
     description:
-      path: "../my_image_lib"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "1212c483f92f2bfb2d0819d0ecdf8e86d237a12b"
+      url: "https://git.gzmiyuan.com/flutter/my_image_lib.git"
+    source: git
     version: "0.0.1"
   my_net_lib:
     dependency: "direct main"
     description:
-      path: "../my_net_lib"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "9f5bb51ea8d474610fa39d0d587cc54497d4fc57"
+      url: "https://git.gzmiyuan.com/flutter/my_net_lib.git"
+    source: git
     version: "0.0.1"
   my_vm_lib:
     dependency: "direct main"
     description:
-      path: "../my_vm_lib"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: db01fffac7743975a7a4665e29c69f83ec57f11e
+      url: "https://git.gzmiyuan.com/chenzhimin/my_vm_lib.git"
+    source: git
     version: "0.0.1"
   nested:
     dependency: transitive
