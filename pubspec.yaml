@@ -31,11 +31,11 @@ dependencies:
   my_vm_lib:
     git: 'https://git.gzmiyuan.com/flutter/my_vm_lib.git'
   my_net_lib:
-#    git: 'https://git.gzmiyuan.com/flutter/my_net_lib.git'
-    path: '../my_net_lib'
+    git: 'https://git.gzmiyuan.com/flutter/my_net_lib.git'
+#    path: '../my_net_lib'
   my_image_lib:
-#    git: 'https://git.gzmiyuan.com/flutter/my_image_lib.git'
-    path: '../my_image_lib'
+    git: 'https://git.gzmiyuan.com/flutter/my_image_lib.git'
+#    path: '../my_image_lib'
 
   # loading ，toast 类 https://pub.dev/packages/flutter_easyloading/versions
   flutter_easyloading: ^2.2.2
