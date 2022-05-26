@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.10.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -31,25 +31,27 @@ dependencies:
   my_vm_lib:
     git: 'https://git.gzmiyuan.com/flutter/my_vm_lib.git'
   my_net_lib:
-    git: 'https://git.gzmiyuan.com/flutter/my_net_lib.git'
+#    git: 'https://git.gzmiyuan.com/flutter/my_net_lib.git'
+    path: '../my_net_lib'
   my_image_lib:
-    git: 'https://git.gzmiyuan.com/flutter/my_image_lib.git'
+#    git: 'https://git.gzmiyuan.com/flutter/my_image_lib.git'
+    path: '../my_image_lib'
 
   # loading ，toast 类 https://pub.dev/packages/flutter_easyloading/versions
   flutter_easyloading: ^2.2.2
 
   # provider
-  provider: 4.3.2
+  provider: ^6.0.3
 
   # 下拉刷新 https://pub.dev/packages/pull_to_refresh/versions
-  pull_to_refresh: ^1.6.3
+  pull_to_refresh: ^2.0.0
 
   # 屏幕适配
   flutter_screenutil: ^1.0.2
 
-  crypto: ^2.0.0
+  crypto: ^3.0.2
 
-  encrypt: ^4.0.0
+  encrypt: ^5.0.1
 
 dev_dependencies:
   flutter_test:
