@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:my_app_demo/page/goods_detail/vm/goods_vm.dart';
 import 'package:my_app_demo/page/goods_detail/widget/view_page_widget.dart';
 import 'package:provider/provider.dart';
+
+import 'view_model/goods_vm.dart';
 
 class MyTabbedPage extends StatefulWidget {
   const MyTabbedPage({Key key}) : super(key: key);

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_app_demo/function/refresh/my_refresh.dart';
-import 'package:my_app_demo/page/home/vm/home_vm.dart';
 import 'package:provider/provider.dart';
+
+import '../view_model/home_vm.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);

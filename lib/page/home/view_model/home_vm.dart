@@ -36,6 +36,7 @@ class HomeVM extends MYListViewModel<String> {
     var homeBean = HomeBean.fromJson(resp);
     showToast(homeBean.dataList.length.toString());
 
+
     //data 是一个列表类型
     // var resp = await doPost('/gw/api/order/getOrderList/new', data: {});
     // List<HomeBean> homeBeans = resp.map((e) => HomeBean.fromJson(e)).toList();
