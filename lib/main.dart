@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_app_demo/function/refresh/my_footer.dart';
 import 'package:my_app_demo/function/refresh/my_header.dart';
 import 'package:my_app_demo/page/home/page/index.dart';
-import 'package:my_app_demo/page/image_load/index.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'page/goods_detail/index.dart';
@@ -70,7 +69,7 @@ class MyApp extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MYImagePage()));
+                                builder: (context) => HomePage()));
                       },
                       child: Text('图片加载1'),
                     ),
